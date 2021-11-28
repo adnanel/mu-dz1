@@ -1,0 +1,278 @@
+---
+title: "Zadaća 1"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+Tim:
+
+    Adnan Elezovic
+    Haris Halilović
+    Ibrahim Dedeić
+
+Broj indeksa:
+
+    1674/16728
+    # ToDo @ HH
+    # ToDo @ ID
+
+Nastavna grupa:
+
+    4
+
+
+## Zadatak 1
+
+Prije svega, učitavamo naš dataset.
+
+```{r}
+
+data<-read.csv("weather_data_train.csv", header=TRUE)
+
+```
+
+Sada ćemo očitati dimenzije seta koristeći funkciju *dim()*.
+
+```{r}
+
+dim(data)
+
+```
+Vidimo da naš set sadrži 2000 rekorda (_redova_), a 14 polja (_kolona_).
+
+
+
+Dalje, zanimaju nas *tipovi* pojedinačnih atributa unutar seta. Tu informaciju možemo koristeći funkciju *sapply(data, class)*, ali možemo isto tako očitati iste te informacije sa sažetog izvještaja koristeći funkciju *summary(data)*:
+
+
+```{r}
+
+summary(data)
+
+```
+
+
+Možemo i neke primjer vrijednosti vidjeti koristeći
+
+```{r}
+str(data)
+```
+
+Također ćemo za svaki atribut ispisati broj jedinstvenih vrijednosti:
+
+```{r}
+for (i in names(data)) {
+  col <- data[[i]]
+  uniques <- unique(col)
+  cnt <- length(uniques)
+  cat('Za atribut', i, 'imamo', cnt, 'različitih vrijednosti\n');
+}
+```
+
+Sljedeće nas zanima u kojim atributima nam nedostaju vrijednosti, i koliko:
+```{r}
+colSums(is.na(data)) 
+```
+
+Računamo **IQR** za numeričke vrijednosti:
+```{r}
+IQR(data$MinTemp, na.rm=TRUE)
+IQR(data$MaxTemp, na.rm=TRUE)
+IQR(data$Rainfall, na.rm=TRUE)
+IQR(data$WindGustSpeed, na.rm=TRUE)
+IQR(data$Humidity9am, na.rm=TRUE)
+IQR(data$Cloud9am, na.rm=TRUE)
+IQR(data$Pressure9am, na.rm=TRUE)
+IQR(data$Cloud5pm, na.rm=TRUE)
+```
+
+Računamo **range** za numeričke vrijednosti:
+
+```{r}
+range(data$MinTemp, na.rm=TRUE)
+range(data$MaxTemp, na.rm=TRUE)
+range(data$Rainfall, na.rm=TRUE)
+range(data$WindGustSpeed, na.rm=TRUE)
+range(data$Humidity9am, na.rm=TRUE)
+range(data$Cloud9am, na.rm=TRUE)
+range(data$Pressure9am, na.rm=TRUE)
+range(data$Cloud5pm, na.rm=TRUE)
+```
+
+
+
+Računamo **midrange** za numeričke vrijednosti:
+
+```{r}
+library(statip)
+midrange(data$MinTemp, na_rm=TRUE)
+midrange(data$MaxTemp, na_rm=TRUE)
+midrange(data$Rainfall, na_rm=TRUE)
+midrange(data$WindGustSpeed, na_rm=TRUE)
+midrange(data$Humidity9am, na_rm=TRUE)
+midrange(data$Cloud9am, na_rm=TRUE)
+midrange(data$Pressure9am, na_rm=TRUE)
+midrange(data$Cloud5pm, na_rm=TRUE)
+```
+
+
+Računamo **mode** za numeričke vrijednosti:
+```{r}
+getmode <- function(v) {
+ uniqv <- unique(v)
+ uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+getmode(data$MinTemp)
+getmode(data$MaxTemp)
+getmode(data$Rainfall)
+getmode(data$WindGustSpeed)
+getmode(data$Humidity9am)
+getmode(data$Cloud9am)
+getmode(data$Pressure9am)
+getmode(data$Cloud5pm)
+
+```
+
+## TODO Ovdje se dobije NA, nisam siguran zasto, ispitati...
+
+Računamo **sd** (standardnu devijaciju) za numeričke vrijednosti:
+
+```{r}
+sd(data$MinTemp, na.rm=TRUE)
+sd(data$MaxTemp, na.rm=TRUE)
+sd(data$Rainfall, na.rm=TRUE)
+sd(data$WindGustSpeed, na.rm=TRUE)
+sd(data$Humidity9am, na.rm=TRUE)
+sd(data$Cloud9am, na.rm=TRUE)
+sd(data$Pressure9am, na.rm=TRUE)
+sd(data$Cloud5pm, na.rm=TRUE)
+```
+
+Računamo **var** (varijansu) za numeričke vrijednosti:
+
+```{r}
+var(data$MinTemp, na.rm=TRUE)
+var(data$MaxTemp, na.rm=TRUE)
+var(data$Rainfall, na.rm=TRUE)
+var(data$WindGustSpeed, na.rm=TRUE)
+var(data$Humidity9am, na.rm=TRUE)
+var(data$Cloud9am, na.rm=TRUE)
+var(data$Pressure9am, na.rm=TRUE)
+var(data$Cloud5pm, na.rm=TRUE)
+```
+
+
+Dalje, istražujemo distribuciju podataka koristeći **boxplot** graf. 
+
+```{r}
+boxplot(data$MinTemp, horizontal = TRUE, col = 'cyan', xlab = 'MinTemp')
+```
+
+
+Iz grafa vidimo vrijednosti koje smo već mogli vidjeti unutar **summary** izvještaja za ovu varijablu. Pored toga, zaključujemo da nemamo **outliers** za ovu varijablu. Na osnovu vizualizacije distribucije podataka vidimo da dominiraju više vrijednosti, odnosno više temperature.
+
+
+
+```{r}
+boxplot(data$MaxTemp, horizontal = TRUE, col = 'cyan', xlab = 'MaxTemp')
+```
+
+
+Analogno donosimo iste zaključke kao u prethodnom grafu. Po pitanju distribucije podataka je teže doći do zaključka jer je razlika minimalna, međutim uzimajući u obzir informacije iz **summary**,
+
+## TODO Proširiti...
+## todo protumačiti i ostale...
+
+```{r}
+boxplot(data$Rainfall, horizontal = TRUE, col = 'cyan', xlab = 'Rainfall')
+```
+
+
+```{r}
+boxplot(data$WindGustSpeed, horizontal = TRUE, col = 'cyan', xlab = 'WindGustSpeed')
+```
+
+```{r}
+boxplot(data$Humidity9am, horizontal = TRUE, col = 'cyan', xlab = 'Humidity9am')
+```
+
+```{r}
+boxplot(data$Cloud9am, horizontal = TRUE, col = 'cyan', xlab = 'Cloud9am')
+```
+
+```{r}
+boxplot(data$Pressure9am, horizontal = TRUE, col = 'cyan', xlab = 'Pressure9am')
+```
+
+```{r}
+boxplot(data$Cloud5pm, horizontal = TRUE, col = 'cyan', xlab = 'Cloud5pm')
+```
+
+
+Dalje, interesuje nas odnos između činjenice da li je padala kiša, i svih ostalih varijabli.
+
+```{r}
+library(ggplot2)
+
+ggplot(data, aes(x = MinTemp, fill = RainTomorrow)) + 
+  geom_density(alpha = 0.6) +
+  labs(x = "MinTemp", y = "") +
+  ggtitle("Padavina kiše u odnosu na min temperaturu") +
+  scale_fill_manual(values = c("rosybrown3","lightsteelblue3")) + theme_classic()
+
+ggplot(data, aes(x = MaxTemp, fill = RainTomorrow)) + 
+  geom_density(alpha = 0.6) +
+  labs(x = "MaxTemp", y = "") +
+  ggtitle("Padavina kiše u odnosu na max temperaturu") +
+  scale_fill_manual(values = c("rosybrown3","lightsteelblue3")) + theme_classic()
+
+
+ggplot(data, aes(x = Rainfall, fill = RainTomorrow)) + 
+  geom_density(alpha = 0.6) +
+  labs(x = "Rainfall", y = "") +
+  ggtitle("Padavina kiše u odnosu na max temperaturu") +
+  scale_fill_manual(values = c("rosybrown3","lightsteelblue3")) + theme_classic()
+
+
+ggplot(data, aes(x = WindGustSpeed, fill = RainTomorrow)) + 
+  geom_density(alpha = 0.6) +
+  labs(x = "WindGustSpeed", y = "") +
+  ggtitle("Padavina kiše u odnosu na max temperaturu") +
+  scale_fill_manual(values = c("rosybrown3","lightsteelblue3")) + theme_classic()
+
+
+
+ggplot(data, aes(x = Humidity9am, fill = RainTomorrow)) + 
+  geom_density(alpha = 0.6) +
+  labs(x = "Humidity9am", y = "") +
+  ggtitle("Padavina kiše u odnosu na max temperaturu") +
+  scale_fill_manual(values = c("rosybrown3","lightsteelblue3")) + theme_classic()
+
+
+
+ggplot(data, aes(x = Cloud9am, fill = RainTomorrow)) + 
+  geom_density(alpha = 0.6) +
+  labs(x = "Cloud9am", y = "") +
+  ggtitle("Padavina kiše u odnosu na max temperaturu") +
+  scale_fill_manual(values = c("rosybrown3","lightsteelblue3")) + theme_classic()
+
+
+
+ggplot(data, aes(x = Pressure9am, fill = RainTomorrow)) + 
+  geom_density(alpha = 0.6) +
+  labs(x = "Pressure9am", y = "") +
+  ggtitle("Padavina kiše u odnosu na max temperaturu") +
+  scale_fill_manual(values = c("rosybrown3","lightsteelblue3")) + theme_classic()
+
+
+
+
+ggplot(data, aes(x = Cloud5pm, fill = RainTomorrow)) + 
+  geom_density(alpha = 0.6) +
+  labs(x = "Cloud5pm", y = "") +
+  ggtitle("Padavina kiše u odnosu na max temperaturu") +
+  scale_fill_manual(values = c("rosybrown3","lightsteelblue3")) + theme_classic()
+```
