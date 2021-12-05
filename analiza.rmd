@@ -240,7 +240,7 @@ ggplot(data, aes(x = Rainfall, fill = RainTomorrow)) +
 ggplot(data, aes(x = WindGustSpeed, fill = RainTomorrow)) + 
   geom_density(alpha = 0.6) +
   labs(x = "WindGustSpeed", y = "") +
-  ggtitle("Padavina kiše u odnosu na max temperaturu") +
+  ggtitle("Padavina kiše u odnosu na jačinu vjetra") +
   scale_fill_manual(values = c("rosybrown3","lightsteelblue3")) + theme_classic()
 
 
@@ -248,7 +248,7 @@ ggplot(data, aes(x = WindGustSpeed, fill = RainTomorrow)) +
 ggplot(data, aes(x = Humidity9am, fill = RainTomorrow)) + 
   geom_density(alpha = 0.6) +
   labs(x = "Humidity9am", y = "") +
-  ggtitle("Padavina kiše u odnosu na max temperaturu") +
+  ggtitle("Padavina kiše u odnosu na vlažnost u 09:00") +
   scale_fill_manual(values = c("rosybrown3","lightsteelblue3")) + theme_classic()
 
 
@@ -256,7 +256,7 @@ ggplot(data, aes(x = Humidity9am, fill = RainTomorrow)) +
 ggplot(data, aes(x = Cloud9am, fill = RainTomorrow)) + 
   geom_density(alpha = 0.6) +
   labs(x = "Cloud9am", y = "") +
-  ggtitle("Padavina kiše u odnosu na max temperaturu") +
+  ggtitle("Padavina kiše u odnosu na oblačnost u 09:00") +
   scale_fill_manual(values = c("rosybrown3","lightsteelblue3")) + theme_classic()
 
 
@@ -264,7 +264,7 @@ ggplot(data, aes(x = Cloud9am, fill = RainTomorrow)) +
 ggplot(data, aes(x = Pressure9am, fill = RainTomorrow)) + 
   geom_density(alpha = 0.6) +
   labs(x = "Pressure9am", y = "") +
-  ggtitle("Padavina kiše u odnosu na max temperaturu") +
+  ggtitle("Padavina kiše u odnosu na pritisak u 09:00") +
   scale_fill_manual(values = c("rosybrown3","lightsteelblue3")) + theme_classic()
 
 
@@ -273,6 +273,6 @@ ggplot(data, aes(x = Pressure9am, fill = RainTomorrow)) +
 ggplot(data, aes(x = Cloud5pm, fill = RainTomorrow)) + 
   geom_density(alpha = 0.6) +
   labs(x = "Cloud5pm", y = "") +
-  ggtitle("Padavina kiše u odnosu na max temperaturu") +
+  ggtitle("Padavina kiše u odnosu na oblačnost u 17:00") +
   scale_fill_manual(values = c("rosybrown3","lightsteelblue3")) + theme_classic()
 ```
